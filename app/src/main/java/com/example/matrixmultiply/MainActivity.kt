@@ -15,6 +15,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -55,6 +61,7 @@ class MainActivity : ComponentActivity() {
                     var p21 by remember{mutableStateOf(0)};
                     var p22 by remember{mutableStateOf(0)};
 
+                    var allowance by remember{ mutableStateOf(false)} //allowance variable creates the resultant matrix only after multiply button is pressed
 
                     Column(modifier=Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally){
 
@@ -62,85 +69,169 @@ class MainActivity : ComponentActivity() {
                         // MATRIX S
                         Column(modifier=Modifier.height(120.dp), horizontalAlignment = Alignment.CenterHorizontally){
 
-                        Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f)) {
-                            Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { s11=(s11+1)%10 }) {
-                            Text(text=s11.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
-                            }
-                            Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { s12=(s12+1)%10 }) {
-                                Text(text=s12.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(0.5f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { s11 = (s11 + 1) % 10 }) {
+                                    Text(text=s11.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
+                                }
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { s12 = (s12 + 1) % 10 }) {
+                                    Text(text=s12.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
+
+                                }
 
                             }
 
-                        }
-
-                            Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(1f)) {
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { s21=(s21+1)%10 }) {
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(1f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { s21 = (s21 + 1) % 10 }) {
                                     Text(text=s21.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
                                 }
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { s22=(s22+1)%10 }) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { s22 = (s22 + 1) % 10 }) {
                                     Text(text=s22.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
 
                                 }
 
                             }
-                        }
+                        }//first matrix ends
                         Spacer(modifier=Modifier.height(10.dp))
                         Text("x",fontSize=30.sp)
                         Spacer(modifier=Modifier.height(10.dp))
-                        // MATRIX T
 
+                        // MATRIX T
                         Column(modifier=Modifier.height(120.dp), horizontalAlignment = Alignment.CenterHorizontally){
 
-                            Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f)) {
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { t11=(t11+1)%10 }) {
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(0.5f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { t11 = (t11 + 1) % 10 }) {
                                     Text(text=t11.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
                                 }
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { t12=(t12+1)%10 }) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { t12 = (t12 + 1) % 10 }) {
                                     Text(text=t12.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
 
                                 }
 
                             }
 
-                            Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(1f)) {
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { t21=(t21+1)%10 }) {
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(1f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { t21 = (t21 + 1) % 10 }) {
                                     Text(text=t21.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
                                 }
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue).clickable { t22=(t22+1)%10 }) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)
+                                    .clickable { t22 = (t22 + 1) % 10 }) {
                                     Text(text=t22.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
 
                                 }
 
                             }
-                        }
+                        }//second matrix ends
                         Spacer(modifier=Modifier.height(30.dp))
+
+                        //button multiply
+                        Box {
+                            Button(onClick = { allowance=true }) {
+                                Text("Multiply")
+                                Icon(Icons.Default.Done, contentDescription = " ")
+                            }
+                        }
+
                         Text("=", fontSize = 30.sp)
                         Spacer(modifier=Modifier.height(30.dp))
-                        // MATRIX P
-                        Column(modifier=Modifier.height(120.dp), horizontalAlignment = Alignment.CenterHorizontally){
 
-                            Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f)) {
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue)) {
+                        //Initializing the values of the resultant matrix
+                        p11=(s11*t11+s12*t21)%10
+                        p12=(s11*t12+s12*t22)%10
+                        p21=(s21*t11+s22*t21)%10
+                        p22=(s21*t12+s22*t22)%10
+
+                        // MATRIX P
+                        if(allowance==true){Column(modifier=Modifier.height(120.dp), horizontalAlignment = Alignment.CenterHorizontally){
+
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(0.5f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue).clickable{} ){
                                     Text(text=p11.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
                                 }
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)) {
                                     Text(text=p12.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
 
                                 }
 
                             }
 
-                            Row(modifier=Modifier.fillMaxWidth(0.5f).fillMaxHeight(1f)) {
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue)) {
+                            Row(modifier= Modifier
+                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(1f)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)) {
                                     Text(text=p21.toString(),modifier=Modifier.align(Alignment.Center), fontSize = 20.sp,color=Color.White)
                                 }
-                                Box(modifier = Modifier.weight(1f).fillMaxHeight().background(Color.DarkGray).border(1.dp,Color.Blue)) {
+                                Box(modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight()
+                                    .background(Color.DarkGray)
+                                    .border(1.dp, Color.Blue)) {
                                     Text(text=p22.toString(),modifier=Modifier.align(Alignment.Center),fontSize = 20.sp,color=Color.White)
 
                                 }
 
                             }
-                        }
+                        }}//resultant matrix
 
                     }
 
